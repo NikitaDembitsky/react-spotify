@@ -1,13 +1,15 @@
-import './Login.css'
-import {loginUrl} from '../../spotify'
+import "./Login.css";
+import { loginUrl } from "../../spotify";
+import { getCodeValue } from "../../authenticServices";
 
-
-const Login = () =>{
-    return(<div>
-         <a href={loginUrl}>LOGIN WITH SPOTIFY</a>
-         
-    </div>)
-}
-
+const Login = () => {
+  return (
+    <div>
+      <a onClick={getCodeValue}>
+        LOGIN WITH SPOTIFY
+      </a>
+    </div>
+  );
+};
 
 export default Login;
