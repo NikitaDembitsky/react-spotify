@@ -5,9 +5,7 @@ import { getCodeValue } from "../../authenticServices";
 const Login = () => {
   return (
     <div>
-      <a onClick={getCodeValue}>
-        LOGIN WITH SPOTIFY
-      </a>
+      <a onClick={getCodeValue}>LOGIN WITH SPOTIFY</a>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import axios from "axios";
 import queryString from "querystring";
 import { code } from "./spotify";
 import { scopes } from "./spotify";
@@ -7,7 +8,7 @@ const {
   REACT_APP_TOKEN_URI,
   REACT_APP_AUTH_KEY,
   REACT_APP_AUTH_END_POINT,
-  REACT_APP_CLIENT_ID
+  REACT_APP_CLIENT_ID,
 }: any = process.env;
 
 export const getToken = (): void => {
@@ -25,10 +26,18 @@ export const getToken = (): void => {
   }).then(console.log);
 };
 
-export const getCodeValue = () => {
-  fetch(`${REACT_APP_AUTH_END_POINT}?client_id=${REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=${REACT_APP_REDIRECT_URI}&scope=${scopes.join(
-  "%20"
-)}`, {mode: "no-cors"})
-    .then((response) => response.json())
-    .then((data) => console.log(data));
+export const getCodeValue = async () => {
+  try {
+    const res = await axios.get(REACT_APP_AUTH_END_POINT, {
+      params: {
+        client_id: REACT_APP_CLIENT_ID,
+        response_type: "code",
+        redirect_uri: REACT_APP_REDIRECT_URI,
+        scope: scopes.join("%20"),
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+  }
 };
