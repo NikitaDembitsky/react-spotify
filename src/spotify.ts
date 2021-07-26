@@ -11,9 +11,12 @@ export const loginUrl = `${authEndpoint}?client_id=${clientId}&response_type=cod
   "%20"
 )}`;
 
-export const tokenUrl = `curl -H "Authorization: Basic ${clientId}:${clientSecret}" -d grant_type=authorization_code -d code=${code} -d redirect_uri=${redirectUri} -X POST https://accounts.spotify.com/api/token`;
+// export const tokenUrl = `"Authorization: Basic ${process.env.REACT_APP_AUTH_KEY}" -d grant_type=authorization_code -d code=${code} -d redirect_uri=${redirectUri} https://accounts.spotify.com/api/token`;
 // curl -H "Authorization: Basic ZjM...zE=" -d grant_type=authorization_code -d code=MQCbtKe...44KN -d redirect_uri=https%3A%2F%2Fwww.foo.com%2Fauth https://accounts.spotify.com/api/token
 
 // fetch(authEndpoint, {
 //   method: "GET",
 // }).then(console.log);
+
+
+export const tokenUrl = `https://accounts.spotify.com/api/token?authorization=Basic ${process.env.REACT_APP_AUTH_KEY}&grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}`

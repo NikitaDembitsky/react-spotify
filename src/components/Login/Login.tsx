@@ -2,10 +2,11 @@ import "./Login.css";
 import { loginUrl } from "../../spotify";
 import { getCodeValue } from "../../authenticServices";
 
-const Login = () => {
+const Login: React.FC = () => {
+  console.log(loginUrl)
   return (
     <div>
-      <a onClick={getCodeValue}>LOGIN WITH SPOTIFY</a>
+      <button onClick={getCodeValue}>LOGIN WITH SPOTIFY</button>
     </div>
   );
 };
