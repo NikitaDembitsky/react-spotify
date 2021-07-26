@@ -12,46 +12,33 @@ const {
   REACT_APP_CLIENT_ID,
 }: any = process.env;
 
-export const getToken = (): void => {
-  window.location.href  = tokenUrl;
-
-  // fetch(REACT_APP_TOKEN_URI, {
-  //   method: "POST",
-  //   headers: {
-  //     authorization: `Basic ${REACT_APP_AUTH_KEY}`,
-  //     "Content-Type": "application/x-www-form-urlencoded",
-  //   },
-  //   body: queryString.stringify({
-  //     grant_type: "authorization_code",
-  //     code,
-  //     redirect_uri: REACT_APP_REDIRECT_URI,
-  //   }),
-  // }).then(console.log);
+export const getToken = async () => {
+  return await axios
+    .post(
+      REACT_APP_TOKEN_URI,
+      queryString.stringify({
+        grant_type: "authorization_code",
+        code,
+        redirect_uri: REACT_APP_REDIRECT_URI,
+      }),
+      {
+        headers: {
+          authorization: `Basic ${REACT_APP_AUTH_KEY}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    )
+    .then(console.log);
 };
 
 export function getCodeValue() {
   window.location.href = loginUrl;
+}
 
-  // history.push(loginUrl);
-  // try {
-  //   const res = await axios.get(
-  //     `https://cors-anywhere.herokuapp.com/${REACT_APP_AUTH_END_POINT}`,
-  //     {
-  //       headers: {
-  //         "Access-Control-Allow-Headers":
-  //           "Origin, X-Requested-With, Content-Type, Accept",
-  //       },
-  //       params: {
-  //         client_id: REACT_APP_CLIENT_ID,
-  //         response_type: "code",
-  //         redirect_uri: REACT_APP_REDIRECT_URI,
-  //         scope: scopes.join("%20"),
-  //       },
-  //     }
-  //   );
-  //   return res;
-  // } catch (e) {
-  //   console.log(e.response);
-  // }
-  return <div></div>;
+export function searchValue(){
+  return axios.get("https://api.spotify.com/v1/search?q=Muse&type=track%2Cartist&limit=10&offset=5",{
+    headers:{
+      authorization: "Bearer BQAcCn03Ok1GHDIiu8qu-dMKes0ZDKaVo5JQDGcWdscEHPCgtJcD2JivNDo8tsaHIEtoS7NOmJ69pnPgIGrqSCGytDHgnr9l1JEsGt3TasiTGzCRu0lT2ajBfOQDT73h11CBQPQs7jlNW65XvT3erxuVrhMhhUQhhCQCgM0--k3IwutyYSP6YA"
+    }
+  }).then(console.log)
 }

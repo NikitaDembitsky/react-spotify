@@ -1,9 +1,10 @@
 import Login from "./components/Login/Login";
-import DashBoard from "./components/DashBoard/DashBoard";
 import { code } from "./spotify";
 import { useEffect } from "react";
+import './App.css'
 import { getToken } from "./authenticServices";
 import { BrowserRouter as Router } from "react-router-dom";
+import SearchForm from "./components/SearchForm/SearchForm";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -17,7 +18,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="app">{code ? <DashBoard code={code} /> : <Login />}</div>
+      <div className="app">{code ? <SearchForm /> : <Login />}</div>
     </Router>
   );
 };
