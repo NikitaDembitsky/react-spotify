@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { searchValue } from "../../authenticServices";
+import { refreshToken, searchValue } from "../../authenticServices";
 
-const SearchForm = () => {
+const SearchForm: React.FC = () => {
   const [search, setSearch] = useState("");
 
   const handleInputChange = (event: any) => {
     const search = event.target.value;
     setSearch(search);
   };
-
   return (
     <div>
       <input onChange={handleInputChange} value={search} />
-      <button type="submit" onSubmit={searchValue}>
+      <button type="submit" onClick={() => searchValue(search)}>
         Submit
       </button>
     </div>

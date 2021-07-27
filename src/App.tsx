@@ -1,8 +1,8 @@
 import Login from "./components/Login/Login";
 import { code } from "./spotify";
 import { useEffect } from "react";
-import './App.css'
-import { getToken } from "./authenticServices";
+import "./App.css";
+import { getToken, refreshToken, updateToken } from "./authenticServices";
 import { BrowserRouter as Router } from "react-router-dom";
 import SearchForm from "./components/SearchForm/SearchForm";
 
@@ -11,7 +11,9 @@ const App: React.FC = () => {
     let code = new URLSearchParams(window.location.search).get("code");
 
     if (code) {
-      console.log(getToken());
+     
+      getToken();
+      refreshToken();
       code = "";
     }
   }, []);
