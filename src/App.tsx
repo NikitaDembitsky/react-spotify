@@ -1,26 +1,24 @@
 import Login from "./components/Login/Login";
-import { code } from "./spotify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import { getToken, refreshToken, updateToken } from "./authenticServices";
+import { getToken, refreshToken } from "./authenticServices";
+import { code, token } from "./utils";
 import { BrowserRouter as Router } from "react-router-dom";
 import SearchForm from "./components/SearchForm/SearchForm";
 
 const App: React.FC = () => {
-  useEffect(() => {
-    let code = new URLSearchParams(window.location.search).get("code");
+  const [isAuthentificated, setIsAuthentificated] = useState(false);
 
-    if (code) {
-     
+  useEffect(() => {
+    if (code && !token) {
       getToken();
       refreshToken();
-      code = "";
     }
   }, []);
 
   return (
     <Router>
-      <div className="app">{code ? <SearchForm /> : <Login />}</div>
+      <div className="app">{code && token ? <SearchForm /> : <Login />}</div>
     </Router>
   );
 };

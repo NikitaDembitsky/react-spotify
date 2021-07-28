@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { refreshToken, searchValue } from "../../authenticServices";
+import { searchValue } from "../../authenticServices";
 
 const SearchForm: React.FC = () => {
   const [search, setSearch] = useState("");
-
   const handleInputChange = (event: any) => {
     const search = event.target.value;
     setSearch(search);

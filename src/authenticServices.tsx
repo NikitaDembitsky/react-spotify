@@ -1,15 +1,11 @@
 import axios from "axios";
 import queryString from "querystring";
-import { code, loginUrl, tokenUrl } from "./spotify";
-import { scopes } from "./spotify";
-import { useHistory } from "react-router-dom";
+import { code } from "./utils";
+import { baseURL } from "./utils";
 
 const { REACT_APP_REDIRECT_URI, REACT_APP_TOKEN_URI, REACT_APP_AUTH_KEY }: any =
   process.env;
 
-let token: any;
-let refresh_token: any;
-console.log(refresh_token);
 export const getToken = async () => {
   return await axios
     .post(
@@ -32,10 +28,6 @@ export const getToken = async () => {
     });
 };
 
-export const getCodeValue = () => {
-  window.location.href = loginUrl;
-};
-
 export const refreshToken = async () => {
   return await axios
     .post(
@@ -51,9 +43,37 @@ export const refreshToken = async () => {
         },
       }
     )
-    .then((res) => localStorage.setItem("new_token", res.data.access_token));
+    .then(console.log);
 };
 
+axios.defaults.baseURL = baseURL;
+
+const interceptor = axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response.status !== 400) {
+      alert("h")
+      return Promise.reject(error);
+    }
+    axios.interceptors.response.eject(interceptor);
+
+    return axios
+      .post("/api/refresh_token", {
+        'refresh_token': localStorage.getItem('access_token'),
+      })
+      .then((response) => {
+        console.log(response.data)
+        localStorage.setItem("access_token", JSON.stringify(response.data));
+        error.response.config.headers["Authorization"] =
+          "Bearer " + response.data.access_token;
+        return axios(error.response.config);
+      })
+      .catch((error) => {
+        localStorage.setItem("access_token", "");
+        return Promise.reject(error);
+      });
+  }
+);
 export async function searchValue(search: any) {
   return await axios
     .get(
@@ -66,9 +86,3 @@ export async function searchValue(search: any) {
     )
     .then((res) => console.log(res.data.tracks.items));
 }
-
-export const updateToken = () => {
-  const newToken: any = localStorage.getItem("new_token");
-  localStorage.setItem("access_token", newToken);
-  console.log(newToken);
-};
