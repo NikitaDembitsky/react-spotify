@@ -46,34 +46,41 @@ export const refreshToken = async () => {
     .then(console.log);
 };
 
-axios.defaults.baseURL = baseURL;
+const createAxiosResponseInterceptor = () => {
+  axios.defaults.baseURL = baseURL;
 
-const interceptor = axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response.status !== 400) {
-      alert("h")
-      return Promise.reject(error);
-    }
-    axios.interceptors.response.eject(interceptor);
+  const interceptor = axios.interceptors.response.use(
+    (response) => response,
 
-    return axios
-      .post("/api/refresh_token", {
-        'refresh_token': localStorage.getItem('access_token'),
-      })
-      .then((response) => {
-        console.log(response.data)
-        localStorage.setItem("access_token", JSON.stringify(response.data));
-        error.response.config.headers["Authorization"] =
-          "Bearer " + response.data.access_token;
-        return axios(error.response.config);
-      })
-      .catch((error) => {
-        localStorage.setItem("access_token", "");
+    (error) => {
+      if (error.response.status !== 401) {
+        alert("ss");
         return Promise.reject(error);
-      });
-  }
-);
+      }
+      axios.interceptors.response.eject(interceptor);
+
+      return axios
+        .post("/api/refresh_token", {
+            refresh_token: JSON.parse(
+              localStorage.getItem("access_token") || "{}"
+            )["refresh_token"],
+        })
+        .then((response) => {
+          /*saveToken();*/
+          console.log(response.data.refresh_token);
+          localStorage.setItem("access_token", JSON.stringify(response.data));
+          error.response.config.headers["Authorization"] =
+            "Bearer " + response.data.access_token;
+          return axios(error.response.config);
+        })
+        .catch((error) => {
+          localStorage.setItem("access_token", "");
+          return Promise.reject(error);
+        })
+        .finally(createAxiosResponseInterceptor);
+    }
+  );
+};
 export async function searchValue(search: any) {
   return await axios
     .get(
