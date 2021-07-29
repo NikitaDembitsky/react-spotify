@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { searchValue } from "../../authenticServices";
+import "./SearchForm.css";
 
 const SearchForm: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -8,11 +10,16 @@ const SearchForm: React.FC = () => {
     setSearch(search);
   };
   return (
-    <div>
-      <input onChange={handleInputChange} value={search} />
-      <button type="submit" onClick={() => searchValue(search)}>
-        Submit
-      </button>
+    <div className="search">
+      <div className="search__title">
+        <Link to="/">HOME</Link>
+      </div>
+      <div className="search__content">
+        <input onChange={handleInputChange} value={search} />
+        <button type="submit" onClick={() => searchValue(search)}>
+          Submit
+        </button>
+      </div>
     </div>
   );
 };

@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { getToken, refreshToken } from "./authenticServices";
 import { code, token } from "./utils";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import SearchForm from "./components/SearchForm/SearchForm";
 import HomePage from "./components/HomePage/HomePage";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import PublicRoute from "./components/PublicRoute/PublicRoute";
 
-const App: React.FC = (props) => {
-  const [isAuthentificated, setIsAuthentificated] = useState(false);
+const App: React.FC = () => {
   useEffect(() => {
     if (code && !token) {
       getToken();
@@ -18,12 +19,13 @@ const App: React.FC = (props) => {
 
   return (
     <div className="app">
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/login" component={Login} />
-        <Route path="/search" component={SearchForm} />
-        {/* {code && token ? <SearchForm /> : <Login />} */}
-      </Switch>
+      <BrowserRouter>
+        <Switch>
+          <PublicRoute exact restricted={false} path="/" component={HomePage} />
+          <PrivateRoute path="/login" component={Login} />
+          <PrivateRoute path="/search" component={SearchForm} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 };

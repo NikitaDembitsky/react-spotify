@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom"
+import { getCodeValue } from "../../utils";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <div>
       <h1>SPOTIFY APP</h1>
-      <Link to="/login">Войти</Link>
+      <button onClick={getCodeValue}>
+        <Link to="/search"> LOGIN WITH SPOTIFY</Link>
+      </button>
     </div>
   );
 };
