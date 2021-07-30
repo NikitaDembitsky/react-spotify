@@ -1,19 +1,21 @@
-import Login from "./components/Login/Login";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
-import { getToken, refreshToken } from "./authenticServices";
+import { refreshToken } from "./authenticServices";
 import { code, token } from "./utils";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import SearchForm from "./components/SearchForm/SearchForm";
 import HomePage from "./components/HomePage/HomePage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import PublicRoute from "./components/PublicRoute/PublicRoute";
+import { useDispatch } from "react-redux";
+import { fetchRefreshToken, fetchToken } from "./store/reducers/authReducer";
 
 const App: React.FC = () => {
+  const dispath = useDispatch();
+  console.log(localStorage.getItem("search"));
   useEffect(() => {
     if (code && !token) {
-      getToken();
-      refreshToken();
+      dispath(fetchToken());
+      dispath(fetchRefreshToken());
     }
   }, []);
 
@@ -21,8 +23,7 @@ const App: React.FC = () => {
     <div className="app">
       <BrowserRouter>
         <Switch>
-          <PublicRoute exact restricted={false} path="/" component={HomePage} />
-          <PrivateRoute path="/login" component={Login} />
+          <Route exact path="/" component={HomePage} />
           <PrivateRoute path="/search" component={SearchForm} />
         </Switch>
       </BrowserRouter>

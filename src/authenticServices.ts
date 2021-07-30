@@ -1,13 +1,14 @@
 import axios from "axios";
 import queryString from "querystring";
+import { useDispatch } from "react-redux";
 import { code } from "./utils";
 import { baseURL } from "./utils";
 
 const { REACT_APP_REDIRECT_URI, REACT_APP_TOKEN_URI, REACT_APP_AUTH_KEY }: any =
   process.env;
 
-export const getToken = async () => {
-  const res = await axios.post(
+export const fetchToken = () =>
+  axios.post(
     REACT_APP_TOKEN_URI,
     queryString.stringify({
       grant_type: "authorization_code",
@@ -22,12 +23,8 @@ export const getToken = async () => {
     }
   );
 
-  localStorage.setItem("access_token", res.data.access_token);
-  localStorage.setItem("refresh_token", res.data.refresh_token);
-};
-
-export const refreshToken = async () => {
-  const res = await axios.post(
+export const refreshToken = () =>
+  axios.post(
     REACT_APP_TOKEN_URI,
     queryString.stringify({
       grant_type: "refresh_token",
@@ -40,8 +37,6 @@ export const refreshToken = async () => {
       },
     }
   );
-  console.log(res);
-};
 
 axios.defaults.baseURL = baseURL;
 
@@ -55,10 +50,11 @@ const interceptor = axios.interceptors.response.use(
     axios.interceptors.response.eject(interceptor);
 
     try {
-      const response = await axios
-        .post("/api/refresh_token", {
-          refresh_token: JSON.parse(localStorage.getItem("access_token") || "{}")["refresh_token"],
-        });
+      const response = await axios.post("/api/refresh_token", {
+        refresh_token: JSON.parse(localStorage.getItem("access_token") || "{}")[
+          "refresh_token"
+        ],
+      });
       console.log(response.data.refresh_token);
       localStorage.setItem("access_token", JSON.stringify(response.data));
       error.response.config.headers["Authorization"] =
@@ -71,15 +67,12 @@ const interceptor = axios.interceptors.response.use(
   }
 );
 
-export async function searchValue(search: any) {
-  const res = await axios
-    .get(
-      `https://api.spotify.com/v1/search?q=${search}&type=track&limit=10&offset=5`,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      }
-    )
-    console.log(res.data.tracks.items);
-}
+export const searchTrack = (searchValue: string) =>
+  axios.get(
+    `https://api.spotify.com/v1/search?q=${searchValue}&type=track&limit=10&offset=5`,
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    }
+  );

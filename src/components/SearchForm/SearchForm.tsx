@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { searchValue } from "../../authenticServices";
+import { fetchSearch } from "../../store/reducers//searchReducer";
 import "./SearchForm.css";
 
 const SearchForm: React.FC = () => {
+  const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const handleInputChange = (event: any) => {
     const search = event.target.value;
@@ -16,12 +18,11 @@ const SearchForm: React.FC = () => {
       </div>
       <div className="search__content">
         <input onChange={handleInputChange} value={search} />
-        <button type="submit" onClick={() => searchValue(search)}>
+        <button type="submit" onClick={() => dispatch(fetchSearch(search))}>
           Submit
         </button>
       </div>
     </div>
   );
 };
-
 export default SearchForm;
