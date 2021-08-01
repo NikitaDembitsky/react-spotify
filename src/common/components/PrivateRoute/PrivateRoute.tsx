@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
-import { code, token } from "../../utils";
-import { setIsAuthentificated } from "../../store/reducers/authReducer";
+import { code, token } from "../../../utils";
+import { setIsAuthentificated } from "../../../store/auth/authReducer";
 
 const PrivateRoute = ({ component: Component, ...rest }: any) => {
   const dispath = useDispatch();

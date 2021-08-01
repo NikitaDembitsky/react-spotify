@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import "./App.css";
-import { refreshToken } from "./authenticServices";
-import { code, token } from "./utils";
+import { refreshToken } from "../../authenticServices";
+import { code, token } from "../../utils";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import SearchForm from "./components/SearchForm/SearchForm";
-import HomePage from "./components/HomePage/HomePage";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import SearchForm from "../SearchForm/SearchForm";
+import HomePage from "../HomePage/HomePage";
+import PrivateRoute from "../../common/components/PrivateRoute/PrivateRoute";
 import { useDispatch } from "react-redux";
-import { fetchRefreshToken, fetchToken } from "./store/reducers/authReducer";
+import { fetchRefreshToken, fetchToken } from "../../store/auth/authReducer";
 
 const App: React.FC = () => {
   const dispath = useDispatch();
