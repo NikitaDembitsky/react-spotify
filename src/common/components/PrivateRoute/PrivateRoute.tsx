@@ -1,13 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
-import { code, token } from "../../utils";
-import { setIsAuthentificated } from "../../store/reducers/authReducer";
+import { RootState } from "../../../store";
 
 const PrivateRoute = ({ component: Component, ...rest }: any) => {
-  const dispath = useDispatch();
   const isLogin = useSelector(
-    (state: any) => state.authReducer.isAuthentificated
+    (state: RootState) => state.authReducer.isAuthentificated
   );
 
   console.log(isLogin);

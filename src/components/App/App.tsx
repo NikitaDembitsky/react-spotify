@@ -1,23 +1,21 @@
 import { useEffect } from "react";
 import "./App.css";
-import { refreshToken } from "./authenticServices";
-import { code, token } from "./utils";
+import { code, token } from "../../utils";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import SearchForm from "./components/SearchForm/SearchForm";
-import HomePage from "./components/HomePage/HomePage";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import SearchForm from "../SearchForm/SearchForm";
+import HomePage from "../HomePage/HomePage";
+import PrivateRoute from "../../common/components/PrivateRoute/PrivateRoute";
 import { useDispatch } from "react-redux";
-import { fetchRefreshToken, fetchToken } from "./store/reducers/authReducer";
+import { fetchRefreshToken, fetchToken } from "../../store/auth/authActions";
 
 const App: React.FC = () => {
   const dispath = useDispatch();
-  console.log(localStorage.getItem("search"));
   useEffect(() => {
     if (code && !token) {
       dispath(fetchToken());
       dispath(fetchRefreshToken());
     }
-  }, []);
+  });
 
   return (
     <div className="app">

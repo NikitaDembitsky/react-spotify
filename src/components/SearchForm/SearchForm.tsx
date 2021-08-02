@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchSearch } from "../../store/reducers//searchReducer";
+import { fetchSearch } from "../../store/search/searchReducer";
 import "./SearchForm.css";
 
 const SearchForm: React.FC = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  const handleInputChange = (event: any) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value;
     setSearch(search);
   };
