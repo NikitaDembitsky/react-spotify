@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
-import { call, StrictEffect, takeLatest } from "redux-saga/effects";
+import { call, StrictEffect, takeLatest, put } from "redux-saga/effects";
 import { searchApi } from "../../api/searchApi";
-import { fetchSearchAction, FETCH_SEARCH } from "./searchReducer";
+import { fetchSearchAction, FETCH_SEARCH, setTracks } from "./searchReducer";
 
 function* fetchSearch(action: fetchSearchAction) {
   const response: AxiosResponse = yield call(
@@ -9,7 +9,8 @@ function* fetchSearch(action: fetchSearchAction) {
     action.payload
   );
   const { data } = response;
-  console.log(data.tracks.items);
+  yield put(setTracks(data.tracks.items));
+ 
 }
 
 function* searchSaga(): Generator<StrictEffect> {

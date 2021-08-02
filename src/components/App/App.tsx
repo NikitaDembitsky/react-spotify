@@ -7,6 +7,7 @@ import HomePage from "../HomePage/HomePage";
 import PrivateRoute from "../../common/components/PrivateRoute/PrivateRoute";
 import { useDispatch } from "react-redux";
 import { fetchRefreshToken, fetchToken } from "../../store/auth/authActions";
+import SearchResult from "../SearchResult/SearchResult";
 
 const App: React.FC = () => {
   const dispath = useDispatch();
@@ -19,6 +20,7 @@ const App: React.FC = () => {
 
   return (
     <div className="app">
+      <SearchResult />
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={HomePage} />
