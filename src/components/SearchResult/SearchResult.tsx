@@ -1,12 +1,24 @@
-import { searchApi } from "../../api/searchApi";
-import { useSelector } from "react-redux";
-import { setTracks } from "../../store/search/searchReducer";
+import "./SearchResult.css";
 
-const SearchResult = () => {
-  const tracks = useSelector((state: any) => state.searchReducer.tracks);
-  console.log(tracks)
- 
-  return <div></div>;
+const SearchResult: any = (props: {
+  name: string;
+  image: any;
+  artist: string;
+}) => {
+  const { name, image, artist } = props;
+  return (
+    <div className="search__tracks">
+      <div className="track__image">
+        <img className="image" src={image} alt={name}></img>
+      </div>
+      <div className="track__name">
+        <p>{name}</p>
+      </div>
+      <div className="track__artist">
+        <p>{artist}</p>
+      </div>
+    </div>
+  );
 };
 
 export default SearchResult;

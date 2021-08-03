@@ -1,0 +1,21 @@
+.homepage{
+    width: 1300px;
+    margin: auto;
+    margin-top: 140px;
+    text-align: center;
+}
+
+.text{
+    color: green;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+Link{
+    text-decoration: none;
+}
+
+.homepage__title{
+    font-size: 40px;
+    font-weight: bold;
+}

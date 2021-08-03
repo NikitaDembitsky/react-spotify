@@ -11,3 +11,6 @@ export const getCodeValue = (): void => {
     window.location.href = loginUrl;
   }
 };
+export const logOut  = () : void =>{
+  window.location.href = "https://accounts.spotify.com/logout"
+}

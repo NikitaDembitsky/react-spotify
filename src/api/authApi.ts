@@ -2,7 +2,7 @@ import axios from "axios";
 import queryString from "querystring";
 import { code } from "../utils";
 
-const { REACT_APP_REDIRECT_URI, REACT_APP_TOKEN_URI, REACT_APP_AUTH_KEY }:any =
+const { REACT_APP_REDIRECT_URI, REACT_APP_TOKEN_URI, REACT_APP_AUTH_KEY }: any =
   process.env;
 
 class AuthApi {
@@ -36,6 +36,14 @@ class AuthApi {
         },
       }
     );
+
+  getCurrentUser = () => {
+    axios.get("https://api.spotify.com/v1/me", {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    });
+  };
 }
 
 export const authApi = new AuthApi();

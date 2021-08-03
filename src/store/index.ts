@@ -18,7 +18,7 @@ export type RootState = ReturnType<typeof store.getState>;
 sagaMiddleware.run(rootSaga);
 
 // axios.interceptors.request.use((request: AxiosRequestConfig) => {
-//     if (request.url !== AuthenticationEndpoints.GET_TOKEN_URL
+//     if (request.url !== process.env.REACT_APP_TOKEN_URI
 //         && request?.url?.startsWith('/api')) {
 //         const token: string = localStorage.get('access_token');
 //         if (token) {
