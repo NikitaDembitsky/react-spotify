@@ -1,4 +1,4 @@
-import { call, put, StrictEffect, takeEvery } from "redux-saga/effects";
+import { call, put, StrictEffect, takeEvery, takeLatest } from "redux-saga/effects";
 import {
   FETCH_CURRENT_USER,
   FETCH_REFRESH_TOKEN,
@@ -41,10 +41,9 @@ function* fetchRefreshToken() {
 }
 
 function* authSaga(): Generator<StrictEffect> {
-  yield takeEvery(FETCH_TOKEN, fetchToken);
+  yield takeLatest(FETCH_TOKEN, fetchToken);
   yield takeEvery(FETCH_REFRESH_TOKEN, fetchRefreshToken);
   yield takeEvery(FETCH_CURRENT_USER, fetchCurrentUser);
-  yield takeEvery(PUSH_HISTORY, pushHistory);
 }
 
 export default authSaga;

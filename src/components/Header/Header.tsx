@@ -13,7 +13,11 @@ const Header: React.FC = () => {
         <div className="header__logo"></div>
       </Link>
       <div className="header__content">
-        <div className="header__name"><p className="name__text"><Link to="/profile">{user?.display_name}</Link></p></div>
+        <div className="header__name">
+          <p className="name__text">
+            <Link to="/profile">{user?.display_name}</Link>
+          </p>
+        </div>
         <div className="header__logout">
           <Button onClick={logOut}>
             <p className="logout__text">Log Out</p>
