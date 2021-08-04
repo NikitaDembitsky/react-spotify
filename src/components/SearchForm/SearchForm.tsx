@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { fetchSearch } from "../../store/search/searchReducer";
+import { fetchSearch } from "../../store/search/searchActions";
 import "./SearchForm.css";
 import SearchResult from "../SearchResult/SearchResult";
 import { Button } from "@material-ui/core";

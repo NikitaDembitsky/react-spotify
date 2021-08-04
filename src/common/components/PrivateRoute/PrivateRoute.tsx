@@ -8,7 +8,6 @@ const PrivateRoute = ({ component: Component, ...rest }: any) => {
     (state: RootState) => state.authReducer.isAuthentificated
   );
 
-  console.log(isLogin);
   return (
     <Route
       {...rest}

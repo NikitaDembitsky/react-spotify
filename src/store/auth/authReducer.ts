@@ -7,19 +7,16 @@ import {
 interface authState {
   isAuthentificated: boolean;
   access_token: string;
-  name: string;
+  user: any | null;
 }
 
 const defaultState: authState = {
   isAuthentificated: true,
   access_token: "",
-  name: "unknown",
+  user: null,
 };
 
-const authReducer = (
-  state = defaultState,
-  action: any
-): authState => {
+const authReducer = (state = defaultState, action: any): authState => {
   switch (action.type) {
     case SET_IS_AUTHENTIFICATED:
       return {
@@ -31,7 +28,7 @@ const authReducer = (
     case SET_CURRENT_USER:
       return {
         ...state,
-        name: action.payload,
+        user: action.payload,
       };
     default:
       return state;
