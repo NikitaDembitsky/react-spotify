@@ -12,6 +12,8 @@ import {
   pushHistory,
   PUSH_HISTORY,
   setCurrentUser,
+  setToken,
+  SET_TOKEN,
 } from "./authActions";
 import { authApi } from "../../api/authApi";
 import { AxiosResponse } from "axios";
@@ -22,7 +24,10 @@ function* fetchToken() {
   const { data } = response;
   localStorage.setItem("access_token", data.access_token);
   localStorage.setItem("refresh_token", data.refresh_token);
-
+  yield put({
+    type: FETCH_TOKEN,
+    payload: data.access_token,
+  })
   yield put({
     type: PUSH_HISTORY,
     payload: "/",
