@@ -6,6 +6,7 @@ import rootSaga from "./sagas";
 import rootReducer from "./reducers";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { baseURL } from "../utils";
+import { fetchRefreshToken } from "./auth/authActions";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -17,28 +18,63 @@ export const store = createStore(
 export type RootState = ReturnType<typeof store.getState>;
 sagaMiddleware.run(rootSaga);
 
-// axios.interceptors.request.use((request: AxiosRequestConfig) => {
-//     if (request.url !== process.env.REACT_APP_TOKEN_URI
-//         && request?.url?.startsWith('/api')) {
-//         const token: string = localStorage.get('access_token');
-//         if (token) {
-//             request.headers.Authorization = 'Bearer ' + token;
-//         } else {
-//             throw { response: { status: 401 } };
-//         }
-//     }
-//     return request;
-// }, (error) => {
-//     return Promise.reject(error);
-// });
+export const account = axios.create({
+  baseURL: process.env.REACT_APP_ACCOUNT_SPOTIFY,
+  headers: {
+    authorization: `Basic ${process.env.REACT_APP_AUTH_KEY}`,
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+});
 
-// axios.interceptors.response.use(
-//     (response: AxiosResponse) => {
-//         return response.data;
-//     },
-//     function (error) {
-//         return Promise.reject(error.response);
-//     }
+export const api = axios.create({
+  baseURL: process.env.REACT_APP_API_SPOTIFY,
+  headers: {
+    authorization: `Bearer ${localStorage.getItem("access_token")}`,
+  },
+});
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  function (error) {
+    const access_token = localStorage.getItem("access_token");
+    if (error.response.status === 401 && access_token) {
+      const response = fetchRefreshToken();
+      return response;
+    }
+    return Promise.reject(error);
+  }
+);
+
+api.interceptors.request.use(
+  (request: AxiosRequestConfig) => {
+    const baseURL: string | undefined = process.env.REACT_APP_API_SPOTIFY;
+    if (
+      request.url !== process.env.REACT_APP_TOKEN_URI &&
+      baseURL &&
+      request?.url?.includes(baseURL)
+    ) {
+      console.log("axios request");
+      const token: string | null = localStorage.getItem("access_token");
+      if (token) {
+        request.headers.Authorization = "Bearer " + token;
+      } else {
+        throw { response: { status: 401 } };
+      }
+    }
+    return request;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// api.interceptors.response.use(
+//   (response: AxiosResponse) => {
+//     return response.data;
+//   },
+//   function (error) {
+//     return Promise.reject(error.response);
+//   }
 // );
-
-// axios.defaults.baseURL = baseURL;

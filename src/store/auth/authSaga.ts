@@ -1,4 +1,10 @@
-import { call, put, StrictEffect, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+  call,
+  put,
+  StrictEffect,
+  takeEvery,
+  takeLatest,
+} from "redux-saga/effects";
 import {
   FETCH_CURRENT_USER,
   FETCH_REFRESH_TOKEN,
@@ -12,25 +18,24 @@ import { AxiosResponse } from "axios";
 
 function* fetchToken() {
   const response: AxiosResponse = yield call(authApi.getToken);
+  console.log("token");
   const { data } = response;
   localStorage.setItem("access_token", data.access_token);
   localStorage.setItem("refresh_token", data.refresh_token);
-
-  console.log("token");
 
   yield put({
     type: PUSH_HISTORY,
     payload: "/",
   });
 
- 
+  yield put({
+    type: FETCH_CURRENT_USER,
+  });
 }
 
 function* fetchCurrentUser() {
   console.log("fetch user");
-
   const response: AxiosResponse = yield call(authApi.getCurrentUser);
-  console.log(response)
   const { data } = response;
   yield put(setCurrentUser(data));
 }
@@ -38,6 +43,8 @@ function* fetchCurrentUser() {
 function* fetchRefreshToken() {
   const response: AxiosResponse = yield call(authApi.getRefreshToken);
   const { data } = response;
+  localStorage.setItem("access_token", data.access_token);
+  localStorage.setItem("refresh_token", data.refresh_token);
 }
 
 function* authSaga(): Generator<StrictEffect> {
