@@ -18,7 +18,6 @@ import {
 } from "../../store/auth/authActions";
 import Header from "../Header/Header";
 import { RootState } from "../../store";
-import { createBrowserHistory } from "history";
 
 const App: React.FC = () => {
   const dispath = useDispatch();
