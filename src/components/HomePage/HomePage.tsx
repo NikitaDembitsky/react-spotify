@@ -7,11 +7,9 @@ const HomePage: React.FC = () => {
   return (
     <div className="homepage">
       <p className="homepage__title">SPOTIFY APP</p>
-      <Link to="/search">
-        <Button onClick={getCodeValue} color="primary">
-          <p className="text">LOGIN WITH SPOTIFY</p>
-        </Button>
-      </Link>
+      <Button onClick={getCodeValue} color="primary">
+        <p className="text">LOGIN WITH SPOTIFY</p>
+      </Button>
     </div>
   );
 };

@@ -1,15 +1,15 @@
-import { Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../store";
-import { logOut } from "../../utils";
+import LogoutButton from "../LogoutButton/LogoutButton";
 import "./Header.css";
 
 const Header: React.FC = () => {
   const user = useSelector((state: RootState) => state.authReducer.user);
+  const redirect = user ? "/search" : "/";
   return (
     <div className="header">
-      <Link to="/search">
+      <Link to={redirect}>
         <div className="header__logo"></div>
       </Link>
       <div className="header__content">
@@ -18,11 +18,7 @@ const Header: React.FC = () => {
             <Link to="/profile">{user?.display_name}</Link>
           </p>
         </div>
-        <div className="header__logout">
-          <Button onClick={logOut}>
-            <p className="logout__text">Log Out</p>
-          </Button>
-        </div>
+        {user ? <LogoutButton /> : null}
       </div>
     </div>
   );

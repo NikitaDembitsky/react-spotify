@@ -1,4 +1,4 @@
-import {SET_SEARCH,SET_TRACKS} from "./searchActions"
+import { SET_SEARCH, SET_TRACKS } from "./searchActions";
 
 interface searchState {
   searchValue: string;
