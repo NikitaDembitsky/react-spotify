@@ -49,6 +49,8 @@ const App: React.FC = () => {
     }
   }, [history, user]);
 
+
+
   return (
     <div className="app">
       <Header />
