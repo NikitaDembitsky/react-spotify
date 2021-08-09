@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { fetchOffset, fetchSearch } from "../../store/search/searchActions";
+import { setOffset, fetchSearch } from "../../store/search/searchActions";
 import "./SearchForm.css";
 import SearchResult from "../SearchResult/SearchResult";
 import { Button } from "@material-ui/core";
@@ -16,7 +16,7 @@ const SearchForm: React.FC = () => {
     setSearch(search);
   };
   const tracks = useSelector((state: RootState) => state.searchReducer.tracks);
-  const offset = useSelector((state: RootState)=> state.searchReducer.offset)
+  const offset = useSelector((state: RootState) => state.searchReducer.offset);
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
     return function () {
@@ -31,7 +31,7 @@ const SearchForm: React.FC = () => {
       100
     ) {
       dispatch(fetchSearch(search));
-      dispatch(fetchOffset(offset))
+      dispatch(setOffset(offset));
     }
   };
   return (
@@ -43,7 +43,11 @@ const SearchForm: React.FC = () => {
           placeholder="Search"
           value={search}
         />
-        <Button type="submit" onClick={() => dispatch(fetchSearch(search))}>
+        <Button
+          type="submit"
+          onClick={() => dispatch(fetchSearch(search))}
+          disabled={!search}
+        >
           Submit
         </Button>
       </div>

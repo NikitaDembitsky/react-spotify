@@ -1,16 +1,18 @@
-.profile{
-    width: 610px;
-    margin: auto;
-    font-size: 22px
+.profile {
+  width: 610px;
+  margin: auto;
+  font-size: 22px;
 }
 
-.profile__name, .profile__email, .profile__country{
-    border-bottom: 1px solid gray;
-    margin: 20px;
-    display: flex;
-    justify-content: space-between;
+.profile__name,
+.profile__email,
+.profile__country {
+  border-bottom: 1px solid gray;
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.title{
-    opacity: 0.6;
+.title {
+  opacity: 0.6;
 }

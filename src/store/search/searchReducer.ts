@@ -27,7 +27,7 @@ const searchReducer = (state = defaultState, action: any): searchState => {
     case SET_OFFSET:
       return {
         ...state,
-        offset: state.offset++,
+        offset: state.offset + 1,
       };
     default:
       return state;

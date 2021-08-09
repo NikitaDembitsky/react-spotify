@@ -1,6 +1,6 @@
 import { logOut } from "../../utils";
 import { Button } from "@material-ui/core";
-import "./LogoutButton.css"
+import "./LogoutButton.css";
 
 const LogoutButton = () => {
   return (

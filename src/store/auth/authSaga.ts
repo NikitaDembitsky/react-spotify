@@ -20,7 +20,6 @@ import { AxiosResponse } from "axios";
 
 function* fetchToken() {
   const response: AxiosResponse = yield call(authApi.getToken);
-  console.log("token");
   const { data } = response;
 
   localStorage.setItem("access_token", data.access_token);
@@ -33,7 +32,6 @@ function* fetchToken() {
 }
 
 function* fetchCurrentUser() {
-  console.log("fetch user");
   const response: AxiosResponse = yield call(authApi.getCurrentUser);
   const { data } = response;
   yield put(setCurrentUser(data));
