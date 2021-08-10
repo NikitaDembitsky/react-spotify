@@ -1,4 +1,13 @@
-import { SET_OFFSET, SET_SEARCH, SET_TRACKS } from "./searchActions";
+import {
+  resetOptionAction,
+  RESET_OPTION,
+  setOffsetAction,
+  setSearchAction,
+  setTracksAction,
+  SET_OFFSET,
+  SET_SEARCH,
+  SET_TRACKS,
+} from "./searchActions";
 
 interface searchState {
   searchValue: string;
@@ -12,7 +21,14 @@ const defaultState: searchState = {
   offset: 1,
 };
 
-const searchReducer = (state = defaultState, action: any): searchState => {
+const searchReducer = (
+  state = defaultState,
+  action:
+    | setSearchAction
+    | setTracksAction
+    | setOffsetAction
+    | resetOptionAction
+): searchState => {
   switch (action.type) {
     case SET_SEARCH:
       return {
@@ -22,13 +38,20 @@ const searchReducer = (state = defaultState, action: any): searchState => {
     case SET_TRACKS:
       return {
         ...state,
-        tracks: action.payload,
+        tracks: [...state.tracks, ...action.payload],
       };
     case SET_OFFSET:
       return {
         ...state,
         offset: state.offset + 1,
       };
+    case RESET_OPTION:
+      return {
+        ...state,
+        tracks: "",
+        offset: 1,
+      };
+
     default:
       return state;
   }

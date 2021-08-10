@@ -1,7 +1,7 @@
-import axios from "axios";
 import queryString from "querystring";
 import { account, api } from "../store";
 import { code } from "../utils";
+
 
 const { REACT_APP_REDIRECT_URI }: any = process.env;
 

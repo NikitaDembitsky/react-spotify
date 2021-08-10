@@ -1,9 +1,12 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { setOffset, fetchSearch } from "../../store/search/searchActions";
+import {
+  setOffset,
+  fetchSearch,
+  resetOption,
+} from "../../store/search/searchActions";
 import "./SearchForm.css";
 import SearchResult from "../SearchResult/SearchResult";
 import { Button } from "@material-ui/core";
@@ -17,13 +20,16 @@ const SearchForm: React.FC = () => {
   };
   const tracks = useSelector((state: RootState) => state.searchReducer.tracks);
   const offset = useSelector((state: RootState) => state.searchReducer.offset);
+  const searchValue = useSelector(
+    (state: RootState) => state.searchReducer.searchValue
+  );
+
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
     return function () {
       document.removeEventListener("scroll", scrollHandler);
     };
   });
-
   const scrollHandler = (e: any) => {
     if (
       e.target.documentElement.scrollHeight -
@@ -32,6 +38,14 @@ const SearchForm: React.FC = () => {
     ) {
       dispatch(fetchSearch(search));
       dispatch(setOffset(offset));
+    }
+  };
+  const handleButtonChange = () => {
+    if (searchValue !== search) {
+      dispatch(resetOption());
+      dispatch(fetchSearch(search));
+    } else {
+      dispatch(fetchSearch(search));
     }
   };
   return (
@@ -43,19 +57,15 @@ const SearchForm: React.FC = () => {
           placeholder="Search"
           value={search}
         />
-        <Button
-          type="submit"
-          onClick={() => dispatch(fetchSearch(search))}
-          disabled={!search}
-        >
+        <Button type="submit" onClick={handleButtonChange} disabled={!search}>
           Submit
         </Button>
       </div>
       <div className="search__result">
         {tracks
-          ? tracks.map((track: any) => (
+          ? tracks.map((track: any, idx: number) => (
               <SearchResult
-                key={track.id}
+                key={idx}
                 name={track.name}
                 image={track.album.images[0].url}
                 artist={track.artists[0].name}

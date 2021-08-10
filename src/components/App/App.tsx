@@ -1,21 +1,12 @@
 import { useEffect } from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import Profile from "../Profile/Profile";
 import SearchForm from "../SearchForm/SearchForm";
 import HomePage from "../HomePage/HomePage";
 import PrivateRoute from "../../common/components/PrivateRoute/PrivateRoute";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchCurrentUser,
-  fetchToken,
-  setToken,
-} from "../../store/auth/authActions";
+import { fetchCurrentUser, fetchToken } from "../../store/auth/authActions";
 import Header from "../Header/Header";
 import { RootState } from "../../store";
 

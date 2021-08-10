@@ -7,17 +7,27 @@ import {
   select,
 } from "redux-saga/effects";
 import { searchApi } from "../../api/searchApi";
-import { FETCH_SEARCH, setTracks } from "./searchActions";
+import { FETCH_SEARCH, setTracks, SET_SEARCH } from "./searchActions";
 
-function* fetchSearch(action: any): any {
+function* fetchSearch(action: { payload: string; type: string }): any {
   const offset = yield select((state) => state.searchReducer.offset);
+  // let tracks = yield select((state) => state.searchReducer.tracks);
+  // const searchValue = yield select((state) => state.searchReducer.searchValue);
+  // if (searchValue !== action.payload) {
+  //   offset = 1;
+  // }
+  yield put({
+    type: SET_SEARCH,
+    payload: action.payload,
+  });
   const response: AxiosResponse = yield call(
     searchApi.searchTrack,
     action.payload,
     offset
   );
   const { data } = response;
-  console.log(data)
+  console.log(data);
+
   yield put(setTracks(data.tracks.items));
 }
 

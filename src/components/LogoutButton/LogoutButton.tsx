@@ -2,7 +2,7 @@ import { logOut } from "../../utils";
 import { Button } from "@material-ui/core";
 import "./LogoutButton.css";
 
-const LogoutButton = () => {
+const LogoutButton: React.FC = () => {
   return (
     <div>
       <div className="header__logout">

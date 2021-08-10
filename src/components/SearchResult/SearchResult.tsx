@@ -1,11 +1,12 @@
 import "./SearchResult.css";
 
-const SearchResult: any = (props: {
+interface Props {
   name: string;
-  image: any;
+  image: string;
   artist: string;
-}) => {
-  const { name, image, artist } = props;
+}
+
+const SearchResult: React.FC<Props> = ({ name, image, artist }) => {
   return (
     <div className="search__tracks">
       <div className="track__image">

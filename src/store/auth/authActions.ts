@@ -5,19 +5,11 @@ export const SET_REFRESH_TOKEN = "SET_REFRESH_TOKEN";
 export const FETCH_REFRESH_TOKEN = "FETCH_REFRESH_TOKEN";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const FETCH_CURRENT_USER = "FETCH_CURRENT_USER";
-export const PUSH_HISTORY = "PUSH_HISTORY";
 
-export interface isAuthentificatedAction {
+export interface setIsAuthentificatedAction {
   type: "SET_IS_AUTHENTIFICATED";
   payload: boolean;
 }
-
-export const setIsAuthentificated = (
-  data: boolean
-): isAuthentificatedAction => ({
-  type: SET_IS_AUTHENTIFICATED,
-  payload: data,
-});
 
 export interface setTokenAction {
   type: "SET_TOKEN";
@@ -36,6 +28,22 @@ export interface fetchRefreshTokenAction {
   type: "FETCH_REFRESH_TOKEN";
 }
 
+export interface setCurrentUserAction {
+  type: "SET_CURRENT_USER";
+  payload: string;
+}
+
+export interface fetchCurrentUserAction {
+  type: "FETCH_CURRENT_USER";
+}
+
+export const setIsAuthentificated = (
+  data: boolean
+): setIsAuthentificatedAction => ({
+  type: SET_IS_AUTHENTIFICATED,
+  payload: data,
+});
+
 export const setToken = (payload: string): setTokenAction => ({
   type: SET_TOKEN,
   payload,
@@ -49,16 +57,11 @@ export const fetchRefreshToken = (): fetchRefreshTokenAction => ({
   type: FETCH_REFRESH_TOKEN,
 });
 
-export const setCurrentUser = (payload: any): any => ({
+export const setCurrentUser = (payload: string): setCurrentUserAction => ({
   type: SET_CURRENT_USER,
   payload,
 });
 
-export const pushHistory = (payload: any): any => ({
-  type: PUSH_HISTORY,
-  payload,
-});
-
-export const fetchCurrentUser = (): any => ({
+export const fetchCurrentUser = (): fetchCurrentUserAction => ({
   type: FETCH_CURRENT_USER,
 });

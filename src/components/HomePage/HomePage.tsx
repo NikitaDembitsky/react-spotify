@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "./HomePage.css";
 import { getCodeValue } from "../../utils";
 import { Button } from "@material-ui/core";

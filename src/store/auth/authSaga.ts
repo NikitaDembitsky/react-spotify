@@ -9,10 +9,7 @@ import {
   FETCH_CURRENT_USER,
   FETCH_REFRESH_TOKEN,
   FETCH_TOKEN,
-  pushHistory,
-  PUSH_HISTORY,
   setCurrentUser,
-  setToken,
   SET_TOKEN,
 } from "./authActions";
 import { authApi } from "../../api/authApi";
