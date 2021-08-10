@@ -49,6 +49,7 @@ api.interceptors.request.use(
     if (token) {
       request.headers.Authorization = "Bearer " + token;
     } else {
+      // eslint-disable-next-line no-throw-literal
       throw { response: { status: 401 } };
     }
     return request;

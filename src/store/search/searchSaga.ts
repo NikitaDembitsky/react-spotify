@@ -9,13 +9,9 @@ import {
 import { searchApi } from "../../api/searchApi";
 import { FETCH_SEARCH, setTracks, SET_SEARCH } from "./searchActions";
 
-function* fetchSearch(action: { payload: string; type: string }): any {
+
+function* fetchSearch(action: { payload: string; type: string }):any {
   const offset = yield select((state) => state.searchReducer.offset);
-  // let tracks = yield select((state) => state.searchReducer.tracks);
-  // const searchValue = yield select((state) => state.searchReducer.searchValue);
-  // if (searchValue !== action.payload) {
-  //   offset = 1;
-  // }
   yield put({
     type: SET_SEARCH,
     payload: action.payload,
