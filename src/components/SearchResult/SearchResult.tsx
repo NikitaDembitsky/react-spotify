@@ -6,7 +6,7 @@ interface Props {
   artist: string;
 }
 
-const SearchResult: React.FC<Props> = ({ name, image, artist }) => {
+const TrackCard: React.FC<Props> = ({ name, image, artist }) => {
   return (
     <div className="search__tracks">
       <div className="track__image">
@@ -22,4 +22,4 @@ const SearchResult: React.FC<Props> = ({ name, image, artist }) => {
   );
 };
 
-export default SearchResult;
+export default TrackCard;

@@ -7,13 +7,12 @@ import {
   select,
 } from "redux-saga/effects";
 import { searchApi } from "../../api/searchApi";
-import { FETCH_SEARCH, setTracks, SET_SEARCH } from "./searchActions";
+import { SearchActions, setTracks } from "./searchActions";
 
-
-function* fetchSearch(action: { payload: string; type: string }):any {
+function* getSearchResult(action: { payload: string; type: string }): unknown {
   const offset = yield select((state) => state.searchReducer.offset);
   yield put({
-    type: SET_SEARCH,
+    type: SearchActions.SET_SEARCH,
     payload: action.payload,
   });
   const response: AxiosResponse = yield call(
@@ -22,13 +21,11 @@ function* fetchSearch(action: { payload: string; type: string }):any {
     offset
   );
   const { data } = response;
-  console.log(data);
-
   yield put(setTracks(data.tracks.items));
 }
 
 function* searchSaga(): Generator<StrictEffect> {
-  yield takeLatest(FETCH_SEARCH, fetchSearch);
+  yield takeLatest(SearchActions.FETCH_SEARCH, getSearchResult);
 }
 
 export default searchSaga;

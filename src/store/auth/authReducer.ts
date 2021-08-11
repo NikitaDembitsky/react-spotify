@@ -1,16 +1,20 @@
 import {
-  SET_IS_AUTHENTIFICATED,
-  SET_CURRENT_USER,
-  SET_TOKEN,
+  AuthActions,
   setIsAuthentificatedAction,
   setTokenAction,
   setCurrentUserAction,
 } from "./authActions";
 
-interface authState {
+export interface User {
+  id?: number;
+  email?: string;
+  country?: string;
+  display_name: string;
+}
+export interface authState {
   isAuthentificated: boolean;
   access_token: string;
-  user: any | null;
+  user: User | null;
 }
 
 const defaultState: authState = {
@@ -24,14 +28,14 @@ const authReducer = (
   action: setIsAuthentificatedAction | setTokenAction | setCurrentUserAction
 ): authState => {
   switch (action.type) {
-    case SET_IS_AUTHENTIFICATED:
+    case AuthActions.SET_IS_AUTHENTIFICATED:
       return {
         ...state,
         isAuthentificated: !action.payload,
       };
-    case SET_TOKEN:
+    case AuthActions.SET_TOKEN:
       return { ...state, access_token: action.payload };
-    case SET_CURRENT_USER:
+    case AuthActions.SET_CURRENT_USER:
       return {
         ...state,
         user: action.payload,

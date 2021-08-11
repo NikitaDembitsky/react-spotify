@@ -1,23 +1,21 @@
+import { Track } from "../../components/SearchForm/SearchForm";
 import {
   resetOptionAction,
-  RESET_OPTION,
+  SearchActions,
   setOffsetAction,
   setSearchAction,
   setTracksAction,
-  SET_OFFSET,
-  SET_SEARCH,
-  SET_TRACKS,
 } from "./searchActions";
 
 interface searchState {
   searchValue: string;
-  tracks: any;
+  tracks: Track[];
   offset: number;
 }
 
 const defaultState: searchState = {
   searchValue: "",
-  tracks: "",
+  tracks: [],
   offset: 1,
 };
 
@@ -30,25 +28,26 @@ const searchReducer = (
     | resetOptionAction
 ): searchState => {
   switch (action.type) {
-    case SET_SEARCH:
+    case SearchActions.SET_SEARCH:
       return {
         ...state,
         searchValue: action.payload,
       };
-    case SET_TRACKS:
+
+    case SearchActions.SET_TRACKS:
       return {
         ...state,
         tracks: [...state.tracks, ...action.payload],
       };
-    case SET_OFFSET:
+    case SearchActions.SET_OFFSET:
       return {
         ...state,
         offset: state.offset + 1,
       };
-    case RESET_OPTION:
+    case SearchActions.RESET_OPTION:
       return {
         ...state,
-        tracks: "",
+        tracks: [],
         offset: 1,
       };
 

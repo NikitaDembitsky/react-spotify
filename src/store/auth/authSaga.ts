@@ -5,13 +5,7 @@ import {
   takeEvery,
   takeLatest,
 } from "redux-saga/effects";
-import {
-  FETCH_CURRENT_USER,
-  FETCH_REFRESH_TOKEN,
-  FETCH_TOKEN,
-  setCurrentUser,
-  SET_TOKEN,
-} from "./authActions";
+import { AuthActions, setCurrentUser } from "./authActions";
 import { authApi } from "../../api/authApi";
 import { AxiosResponse } from "axios";
 
@@ -23,7 +17,7 @@ function* fetchToken() {
   localStorage.setItem("refresh_token", data.refresh_token);
 
   yield put({
-    type: SET_TOKEN,
+    type: AuthActions.SET_TOKEN,
     payload: data.access_token,
   });
 }
@@ -42,9 +36,9 @@ function* fetchRefreshToken() {
 }
 
 function* authSaga(): Generator<StrictEffect> {
-  yield takeLatest(FETCH_TOKEN, fetchToken);
-  yield takeEvery(FETCH_REFRESH_TOKEN, fetchRefreshToken);
-  yield takeEvery(FETCH_CURRENT_USER, fetchCurrentUser);
+  yield takeLatest(AuthActions.FETCH_TOKEN, fetchToken);
+  yield takeEvery(AuthActions.FETCH_REFRESH_TOKEN, fetchRefreshToken);
+  yield takeEvery(AuthActions.FETCH_CURRENT_USER, fetchCurrentUser);
 }
 
 export default authSaga;

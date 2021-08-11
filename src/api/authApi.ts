@@ -2,11 +2,11 @@ import queryString from "querystring";
 import { account, api } from "../store";
 import { code } from "../utils";
 
-declare let process : {
+declare let process: {
   env: {
-    REACT_APP_REDIRECT_URI: string
-  }
-}
+    REACT_APP_REDIRECT_URI: string;
+  };
+};
 
 const { REACT_APP_REDIRECT_URI } = process.env;
 

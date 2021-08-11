@@ -4,7 +4,6 @@ import { RootState } from "../../store";
 import LogoutButton from "../LogoutButton/LogoutButton";
 import "./Header.css";
 
-
 const Header: React.FC = () => {
   const user = useSelector((state: RootState) => state.authReducer.user);
   const redirect = user ? "/search" : "/";

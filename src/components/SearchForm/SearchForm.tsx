@@ -4,13 +4,22 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import {
   setOffset,
-  fetchSearch,
+  getSearchResult,
   resetOption,
 } from "../../store/search/searchActions";
 import "./SearchForm.css";
-import SearchResult from "../SearchResult/SearchResult";
+import TrackCard from "../SearchResult/SearchResult";
 import { Button } from "@material-ui/core";
 
+export interface Track {
+  name: string;
+  album: {
+    images: { url: string }[];
+  };
+  artists: {
+    name: string;
+  }[];
+}
 const SearchForm: React.FC = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
@@ -30,22 +39,23 @@ const SearchForm: React.FC = () => {
       document.removeEventListener("scroll", scrollHandler);
     };
   });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const scrollHandler = (e: any) => {
     if (
       e.target.documentElement.scrollHeight -
         (e.target.documentElement.scrollTop + window.innerHeight) <
       100
     ) {
-      dispatch(fetchSearch(search));
+      dispatch(getSearchResult(search));
       dispatch(setOffset(offset));
     }
   };
-  const handleButtonChange = () => {
+  const onClickHandler = () => {
     if (searchValue !== search) {
       dispatch(resetOption());
-      dispatch(fetchSearch(search));
+      dispatch(getSearchResult(search));
     } else {
-      dispatch(fetchSearch(search));
+      dispatch(getSearchResult(search));
     }
   };
   return (
@@ -57,14 +67,14 @@ const SearchForm: React.FC = () => {
           placeholder="Search"
           value={search}
         />
-        <Button type="submit" onClick={handleButtonChange} disabled={!search}>
+        <Button type="submit" onClick={onClickHandler} disabled={!search}>
           Submit
         </Button>
       </div>
       <div className="search__result">
         {tracks
-          ? tracks.map((track: any, idx: number) => (
-              <SearchResult
+          ? tracks.map((track: Track, idx: number) => (
+              <TrackCard
                 key={idx}
                 name={track.name}
                 image={track.album.images[0].url}

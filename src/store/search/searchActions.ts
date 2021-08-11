@@ -1,59 +1,63 @@
-export const SET_SEARCH = "SET_SEARCH";
-export const FETCH_SEARCH = "FETCH_SEARCH";
-export const SET_TRACKS = "SET_TRACKS";
-export const SET_OFFSET = "SET_OFFSET";
-export const FETCH_OFFSET = "FETCH_OFFSET";
-export const RESET_OPTION = "RESET_OPTION";
+import { Track } from "../../components/SearchForm/SearchForm";
+
+export enum SearchActions {
+  SET_TRACKS = "SET_TRACKS",
+  SET_SEARCH = "SET_SEARCH",
+  FETCH_SEARCH = "FETCH_SEARCH",
+  SET_OFFSET = "SET_OFFSET",
+  FETCH_OFFSET = "FETCH_OFFSET",
+  RESET_OPTION = "RESET_OPTION",
+}
 
 export interface setSearchAction {
-  type: "SET_SEARCH";
+  type: SearchActions.SET_SEARCH;
   payload: string;
 }
 export interface fetchSearchAction {
-  type: "FETCH_SEARCH";
+  type: SearchActions.FETCH_SEARCH;
   payload: string;
 }
 export interface setOffsetAction {
-  type: "SET_OFFSET";
+  type: SearchActions.SET_OFFSET;
   payload: number;
 }
 export interface fetchOffsetAction {
-  type: "FETCH_OFFSET";
+  type: SearchActions.FETCH_OFFSET;
   payload: number;
 }
 export interface setTracksAction {
-  type: "SET_TRACKS";
-  payload: any;
+  type: SearchActions.SET_TRACKS;
+  payload: Track[];
 }
 
 export interface resetOptionAction {
-  type: "RESET_OPTION";
+  type: SearchActions.RESET_OPTION;
 }
 
 export const setSearch = (payload: string): setSearchAction => ({
-  type: SET_SEARCH,
+  type: SearchActions.SET_SEARCH,
   payload,
 });
-export const fetchSearch = (payload: string): fetchSearchAction => ({
-  type: FETCH_SEARCH,
+export const getSearchResult = (payload: string): fetchSearchAction => ({
+  type: SearchActions.FETCH_SEARCH,
   payload,
 });
 
-export const setTracks = (payload: string): setTracksAction => ({
-  type: SET_TRACKS,
+export const setTracks = (payload: Track[]): setTracksAction => ({
+  type: SearchActions.SET_TRACKS,
   payload,
 });
 
 export const setOffset = (payload: number): setOffsetAction => ({
-  type: SET_OFFSET,
+  type: SearchActions.SET_OFFSET,
   payload,
 });
 
 export const fetchOffset = (payload: number): fetchOffsetAction => ({
-  type: FETCH_OFFSET,
+  type: SearchActions.FETCH_OFFSET,
   payload,
 });
 
 export const resetOption = (): resetOptionAction => ({
-  type: RESET_OPTION,
+  type: SearchActions.RESET_OPTION,
 });
