@@ -19,6 +19,7 @@ const App: React.FC = () => {
     (state: RootState) => state.authReducer.access_token
   );
 
+   const localToken = localStorage.getItem("access_token");
   const user = useSelector((state: RootState) => state.authReducer.user);
 
   useEffect(() => {
@@ -29,10 +30,10 @@ const App: React.FC = () => {
   }, [dispath]);
 
   useEffect(() => {
-    if (token) {
+    if (token || localToken) {
       dispath(fetchCurrentUser());
     }
-  }, [dispath, token]);
+  }, [dispath, token, localToken]);
 
   useEffect(() => {
     if (user) {
