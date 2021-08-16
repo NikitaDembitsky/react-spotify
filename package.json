@@ -2,12 +2,14 @@
   "name": "react-spotify",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+    "express-favicon": "^2.0.1",
     "js-base64": "^3.6.1",
     "prettier": "^2.3.2",
     "query-string": "^4.3.4",
@@ -20,11 +22,12 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.1.3",
+    "serve-favicon": "^2.5.0",
     "typescript": "^4.3.5",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
