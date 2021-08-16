@@ -10,6 +10,7 @@ export const getCodeValue = (): void => {
     window.location.href = loginUrl;
   }
 };
+
 export const logOut = (): void => {
   localStorage.clear();
   window.location.href = "/";
