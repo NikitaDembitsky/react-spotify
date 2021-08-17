@@ -5,13 +5,12 @@ import rootSaga from "./sagas";
 import rootReducer from "./reducers";
 import axios, { AxiosRequestConfig } from "axios";
 import { fetchRefreshToken } from "./auth/authActions";
-import logger from "redux-logger";
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(logger, sagaMiddleware))
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
 export type RootState = ReturnType<typeof store.getState>;
