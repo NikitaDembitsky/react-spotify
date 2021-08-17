@@ -34,6 +34,13 @@ const SearchForm: React.FC = () => {
   );
 
   useEffect(() => {
+    if (tracks) {
+      dispatch(resetOption());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
     return function () {
       document.removeEventListener("scroll", scrollHandler);
@@ -58,6 +65,13 @@ const SearchForm: React.FC = () => {
       dispatch(getSearchResult(search));
     }
   };
+
+  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
+    if (event.key === "Enter") {
+      onClickHandler();
+    }
+  };
+
   return (
     <div className="search">
       <div className="search__content">
@@ -66,6 +80,7 @@ const SearchForm: React.FC = () => {
           onChange={handleInputChange}
           placeholder="Search"
           value={search}
+          onKeyDown={onKeyDown}
         />
         <Button type="submit" onClick={onClickHandler} disabled={!search}>
           Submit

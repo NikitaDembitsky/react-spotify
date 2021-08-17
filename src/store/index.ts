@@ -5,12 +5,13 @@ import rootSaga from "./sagas";
 import rootReducer from "./reducers";
 import axios, { AxiosRequestConfig } from "axios";
 import { fetchRefreshToken } from "./auth/authActions";
+import logger from "redux-logger";
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(applyMiddleware(logger, sagaMiddleware))
 );
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -35,7 +36,7 @@ api.interceptors.response.use(
   function (error) {
     const access_token = localStorage.getItem("access_token");
     if (error.response.status === 401 && access_token) {
-      const response = fetchRefreshToken();
+      const response = store.dispatch(fetchRefreshToken());
       return response;
     }
     return Promise.reject(error);

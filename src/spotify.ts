@@ -1,5 +1,5 @@
 const authEndpoint = "https://accounts.spotify.com/authorize";
-const redirectUri = "https://spotifyapplication.herokuapp.com/";
+const redirectUri = "http://localhost:3000/";
 const clientId = "f24e61e7ed5b4100ad71dd99bb93d5d4";
 
 export const scopes = ["streaming", "user-read-email", "user-read-private"];

@@ -3,6 +3,7 @@ import {
   setIsAuthentificatedAction,
   setTokenAction,
   setCurrentUserAction,
+  fetchRefreshTokenAction,
 } from "./authActions";
 
 export interface User {
@@ -25,7 +26,11 @@ const defaultState: authState = {
 
 const authReducer = (
   state = defaultState,
-  action: setIsAuthentificatedAction | setTokenAction | setCurrentUserAction
+  action:
+    | setIsAuthentificatedAction
+    | setTokenAction
+    | setCurrentUserAction
+    | fetchRefreshTokenAction
 ): authState => {
   switch (action.type) {
     case AuthActions.SET_IS_AUTHENTIFICATED:

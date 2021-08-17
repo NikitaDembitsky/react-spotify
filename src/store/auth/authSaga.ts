@@ -33,6 +33,10 @@ function* fetchRefreshToken() {
   const { data } = response;
   localStorage.setItem("access_token", data.access_token);
   localStorage.setItem("refresh_token", data.refresh_token);
+  yield put({
+    type: AuthActions.SET_TOKEN,
+    payload: data.access_token,
+  });
 }
 
 function* authSaga(): Generator<StrictEffect> {
