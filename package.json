@@ -8,6 +8,8 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "axios": "^0.21.1",
     "express-favicon": "^2.0.1",
     "js-base64": "^3.6.1",
@@ -53,11 +55,13 @@
     ]
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.9",
     "@types/query-string": "^6.3.0",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.8",
     "@types/redux-logger": "^3.0.9",
+    "enzyme": "^3.11.0",
     "eslint": "^7.31.0"
   }
 }
