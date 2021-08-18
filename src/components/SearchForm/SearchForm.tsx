@@ -34,9 +34,11 @@ const SearchForm: React.FC = () => {
   );
 
   useEffect(() => {
-    if (tracks) {
-      dispatch(resetOption());
-    }
+    return () => {
+      if (tracks) {
+        dispatch(resetOption());
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
