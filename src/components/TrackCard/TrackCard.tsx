@@ -1,4 +1,4 @@
-import "./SearchResult.css";
+import "./TrackCard.css";
 
 interface Props {
   name: string;
@@ -13,10 +13,10 @@ const TrackCard: React.FC<Props> = ({ name, image, artist }) => {
         <img className="image" src={image} alt={name}></img>
       </div>
       <div className="track__name">
-        <p>{name}</p>
+        <p className="name">{name}</p>
       </div>
       <div className="track__artist">
-        <p>{artist}</p>
+        <p className="artist">{artist}</p>
       </div>
     </div>
   );

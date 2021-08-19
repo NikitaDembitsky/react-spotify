@@ -19,7 +19,7 @@ describe("LogoutButton", () => {
     expect(paragraph.text()).toEqual("Log Out");
   });
 
-  it("calls getCodeValue on click", () => {
+  it("calls onClick", () => {
     const button = wrapper.find(Button);
     expect(button.props().onClick).toEqual(logOut);
   });
