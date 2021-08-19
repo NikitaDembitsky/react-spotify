@@ -8,7 +8,7 @@ import {
   resetOption,
 } from "../../store/search/searchActions";
 import "./SearchForm.css";
-import TrackCard from "../SearchResult/SearchResult";
+import TrackCard from "../TrackCard/TrackCard";
 import { Button } from "@material-ui/core";
 
 export interface Track {
