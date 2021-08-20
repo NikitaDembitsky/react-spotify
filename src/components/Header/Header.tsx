@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { RootState } from "../../store";
 import LogoutButton from "../LogoutButton/LogoutButton";
 import "./Header.css";
+import {user} from "../../store/auth/selectors"
 
 const Header: React.FC = () => {
   const user = useSelector((state: RootState) => state.authReducer.user);

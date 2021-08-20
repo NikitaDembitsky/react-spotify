@@ -1,28 +1,22 @@
 import Enzyme, { mount, shallow } from "enzyme";
 import Header from "../../../components/Header/Header";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
-import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-
+import { user } from "../../../store/auth/selectors";
 Enzyme.configure({
   adapter: new Adapter(),
 });
 
-const user = [{ display_name: "name" }];
-
 jest.mock("react-redux", () => ({
-  useSelector: jest.fn(() => user),
+  useSelector: jest.fn((fn) => fn()),
 }));
 
+jest.mock("../../../store/auth/selectors");
+
 describe("Header", () => {
-  it("defines the store", () => {
-    const wrapper = mount(
-      <Router>
-        <Header />
-      </Router>
-    );
-    expect(wrapper).toBeDefined();
-    expect(useSelector).toBeCalledWith(expect.any(Function));
+  
+  it("check selector", () => {
+    user.mockReturnValue(null);
   });
 
   it("should render 2 <Link>s", () => {

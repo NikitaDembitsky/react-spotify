@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentUser, fetchToken } from "../../store/auth/authActions";
 import Header from "../Header/Header";
 import { RootState } from "../../store";
-import ErrorPage from "../ErrorPage/ErrorPage";
 
 const App: React.FC = () => {
   const dispath = useDispatch();
@@ -49,7 +48,6 @@ const App: React.FC = () => {
       <Route exact path="/" component={HomePage} />
       <PrivateRoute path="/profile" component={Profile} />
       <PrivateRoute path="/search" component={SearchForm} />
-      <Route path="/page-not-found" component={ErrorPage} />
     </div>
   );
 };
