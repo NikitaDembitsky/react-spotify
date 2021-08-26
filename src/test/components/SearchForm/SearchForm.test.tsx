@@ -4,6 +4,7 @@ import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import TrackCard from "../../../components/TrackCard/TrackCard";
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -33,4 +34,5 @@ describe("SearchForm", () => {
     const wrapper = shallow(<SearchForm />)
     expect(wrapper.find(Button)).toHaveLength(1)
    })
+
 });

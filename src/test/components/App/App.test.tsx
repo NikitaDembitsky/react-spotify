@@ -1,9 +1,8 @@
 import Enzyme, { mount, shallow } from "enzyme";
 import App from "../../../components/App/App";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import {fetchToken} from "../../../store/auth/authActions"
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -27,12 +26,5 @@ describe("App", () => {
     expect(wrapper).toBeDefined();
     expect(useSelector).toBeCalledWith(expect.any(Function));
   });
-  it("loads first page on init", ()=>{
-    const wrapper = mount(
-      <Router>
-        <App />
-      </Router>
-    );
-
-  })
+  
 });

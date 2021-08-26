@@ -7,28 +7,17 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-jest.mock("react-redux", () => ({
-  useSelector: jest.fn((fn) => fn()),
-}));
-
-jest.mock("../../../store/auth/selectors");
-
+const wrapper = shallow(<Header />);
 describe("Header", () => {
-  
-  it("check selector", () => {
-    user.mockReturnValue(null);
-  });
-
   it("should render 2 <Link>s", () => {
-    const wrapper = shallow(<Header />);
     expect(wrapper.find(Link)).toHaveLength(2);
   });
 
   it("Link redirect to / and /profile", () => {
-    const wrapper = shallow(<Header />);
     wrapper.find(Link).first().simulate("click");
-    expect(wrapper.find(Link).first().props().to).toEqual("/");
+    expect(wrapper.find(Link).first().props().to).toEqual("/search");
     wrapper.find(Link).last().simulate("click");
     expect(wrapper.find(Link).last().props().to).toEqual("/profile");
   });
 });
+
